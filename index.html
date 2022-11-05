@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+    // Use the rest countries' API URL
+
+    var request= new XMLHttpRequest();
+        request.open('GET','https://restcountries.com/v3.1/all',true)
+        request.send();
+        request.onload=function(){
+            var data=JSON.parse(request.response)
+            console.log(data)
+        
+    //a.Get all the countries from the Asia continent /region using the Filter function
+
+        var res=data.filter((element)=>element.region=="Asia")
+        console.log(res)
+         
+    //b.Get all the countries with a population of less than 2 lakhs using Filter function
+
+        var pop=data.filter((element)=>element.population<=200000)
+        console.log(pop)
+
+    
+    //d.Print the total population of countries using reduce function
+       
+     var initial=0;
+       var totalPopulation = data.reduce((acc,val)=>{
+        return acc + val.population;
+      },initial)
+      console.log(totalPopulation);
+    
+    
+    //e.Print the country which uses US Dollars as currency.
+
+
+    for(var i=0; i<data.length; i++){
+     var result = data[i].currencies;
+    if(result){
+    var doller = result.USD;
+     if(doller){
+    console.log(data[i].name.common);
+      }
+     }
+     //console.log("Dollers are not used")
+    //}
+    }
+
+      //c.Print the following details name, capital, flag using forEach function
+    
+      var data=data.forEach((element)=>console.log(element.name.common,element.capital,element.flag))
+
+}
+
+</script>
+
+        
+        
+    
+</body>
+</html>
